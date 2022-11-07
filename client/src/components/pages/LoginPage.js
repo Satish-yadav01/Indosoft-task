@@ -24,7 +24,7 @@ export default function SignInPage() {
         result = await result.json();
         console.log(result) 
         if(result.success){
-            localStorage.setItem('token',JSON.stringify(result))
+            localStorage.setItem('token', result.token)
 			alert('Login successful')
 			window.location.href = '/home'
         }else{

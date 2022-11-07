@@ -10,7 +10,7 @@ const {
     updateName
 } = require('../controllers/userControllers');
 
-router.route('/users').get(isAuthenticatedUser,getUsers);
+router.route('/users').get(getUsers);
 router.route('/user/register').post(register);
 router.route('/user/login').post(login);
 
