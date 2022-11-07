@@ -2,6 +2,7 @@ const express = require('express')
 const app = express();
 
 const dotenv = require('dotenv');
+var cors = require('cors')
 var bodyParser = require('body-parser')
 const connection = require('./config/database');
 const cookieParser = require('cookie-parser')
@@ -13,6 +14,8 @@ const host = process.env.HOST || 'localhost'
 // setting up database connection
 connection();
 
+// setup core
+app.use(cors())
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))

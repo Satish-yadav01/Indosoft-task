@@ -1,31 +1,35 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link} from 'react-router-dom'
 
 import '../../App.css'
 
 export default function SignInPage() {
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
+    // const history = useHistory();
 
 
-    const onSubmit = (e) => {
+    const onSubmit = async(e) => {
         e.preventDefault();
         console.log(email,password)
         
-        fetch("http://localhost:4000/api/v1/user/login",{
+        let result = await fetch("http://localhost:4000/api/v1/user/login",{
             method: 'POST', // or 'PUT'
             headers: {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({email,password}),
           })
-            .then(res =>{
-                console.log("result")
-                res.json()
-            })
-            .then((result) => {
-                console.log(result)
-            })
+        
+        result = await result.json();
+        console.log(result) 
+        if(result.success){
+            localStorage.setItem('token',JSON.stringify(result))
+			alert('Login successful')
+			window.location.href = '/home'
+        }else{
+            alert('Please check your username and password')
+        }
     }
     return (
         <div className="text-center m-5-auto">
